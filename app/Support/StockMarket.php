@@ -21,17 +21,17 @@ class  StockMarket
     public function getPreviousDayClose()
     {
         $previousDay = now()->yesterday()->toDateString();
-        $response = $this->connect('eod/'.$previousDay);
-       $result = json_decode($response->body());
-       dd($result);
+        $response = $this->connect('eod/' . $previousDay);
+        $result = json_decode($response->body());
+        dd($result->data);
     }
 
     public function connect($endpoint)
     {
         $apiKey = config('services.marketstack.key');
-        $url = 'http://api.marketstack.com/v1/'.$endpoint;
-        $query = 'access_key='.$apiKey.'&symbols='.$this->ticker;
-        $request  = Http::get($url,$query);
+        $url = 'http://api.marketstack.com/v1/' . $endpoint;
+        $query = 'access_key=' . $apiKey . '&symbols=' . $this->ticker;
+        $request  = Http::get($url, $query);
         return $request;
     }
 }
