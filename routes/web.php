@@ -35,7 +35,7 @@ Route::get('/dashboard', function () {
     //     echo sprintf('Ticker %s has a day high of %s on %s', $stocksData['symbol'], $stocksData['high'], $stockData['date']);
     // }
     $api = new StockMarket('aapl');
-    return $api->getPreviousDayClose();
+    return $api->storeCurrentData();
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__ . '/auth.php';

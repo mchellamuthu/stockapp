@@ -25,12 +25,19 @@ class  StockMarket
         $result = json_decode($response->body());
         dd($result->data);
     }
+    public function storeCurrentData()
+    {
 
-    public function connect($endpoint)
+        $response = $this->connect('intraday',"&interval=15min");
+        $result = json_decode($response->body());
+        dd($result->data[0]);
+    }
+
+    public function connect($endpoint, $params = null)
     {
         $apiKey = config('services.marketstack.key');
         $url = 'http://api.marketstack.com/v1/' . $endpoint;
-        $query = 'access_key=' . $apiKey . '&symbols=' . $this->ticker;
+        $query = 'access_key=' . $apiKey . '&symbols=' . $this->ticker . $params;
         $request  = Http::get($url, $query);
         return $request;
     }
